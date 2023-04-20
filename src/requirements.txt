@@ -1,0 +1,13 @@
+pre-commit
+aioredis
+fastapi
+pydantic
+python-dotenv
+python-jose
+rich
+slowapi
+tortoise-orm
+tortoise-orm[asyncpg]
+uvicorn
+python-multipart
+pydantic[email]
