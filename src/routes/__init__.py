@@ -1,6 +1,6 @@
 __all__ = ("router_list", "middleware_list")
 
-# import stuff and add them to the correspondng lists:
+from .example_router_file import example_router
 
-router_list = []
+router_list = [example_router]
 middleware_list = []

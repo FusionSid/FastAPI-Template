@@ -10,6 +10,7 @@ import os
 from os.path import dirname, join, exists
 
 import uvicorn
+from rich import print
 from dotenv import load_dotenv
 from tortoise.contrib.fastapi import register_tortoise
 
@@ -53,7 +54,7 @@ devmode = os.environ.get("DEVMODE", "").lower()
 if devmode not in ["true", "false"]:
     raise InvalidDevmodeValue(provided=devmode)
 
-if devmode == "true" and both_certfiles_exist:
+if devmode == "true" or not both_certfiles_exist:
     options = {"app": "main:app", "port": PORT, "reload": True}
 else:
     options = {

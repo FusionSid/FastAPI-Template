@@ -7,7 +7,7 @@ TORTOISE_CONFIG = {
     "connections": {"default": os.environ["DATABASE_URL"]},
     "apps": {
         "models": {
-            "models": ["core.models.<file>", ...],
+            "models": ["core.models.example_model"],
             "default_connection": "default",
         }
     },
