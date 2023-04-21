@@ -1,3 +1,6 @@
+# yes i use a makefile for aliases
+# and no i dont care what you think
+
 run:
 	@DEVMODE=false python src/main.py
 

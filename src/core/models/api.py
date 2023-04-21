@@ -42,6 +42,7 @@ class TheAPI(FastAPI):
     """
 
     def __init__(self, version: str) -> None:
+        # swagger docs metadata
         super().__init__(
             title="<name> REST API",
             version=version,
@@ -52,6 +53,7 @@ class TheAPI(FastAPI):
             },
         )
 
+        # cors support
         cors_options = {
             "allow_origins": ["*"],
             "allow_methods": ["*"],

@@ -7,6 +7,7 @@ __author__ = ["FusionSid"]
 __licence__ = "MIT License"
 
 import os
+from typing import Final
 from os.path import dirname, join, exists
 
 import uvicorn
@@ -24,6 +25,7 @@ app = TheAPI(__version__)
 @app.on_event("startup")
 async def startup_event():
     print("[bold blue]API has started!")
+    # run startup tasks for things eg redis connection
 
 
 @app.on_event("shutdown")
@@ -32,12 +34,15 @@ async def shutdown_event():
     # cleanup tasks if needed
 
 
+# add all routers
 for route in router_list:
     app.include_router(router=route)
 
+# add all middleware
 for middleware in middleware_list:
     app.add_middleware(middleware)
 
+# connect to db through tortoise orm
 register_tortoise(
     app,
     config=TORTOISE_CONFIG,
@@ -45,11 +50,14 @@ register_tortoise(
     add_exception_handlers=True,
 )
 
-PORT = 8443
-SSL_CERTFILE_PATH = join(dirname(__file__), "cert.pem")
-SSL_KEYFILE_PATH = join(dirname(__file__), "key.pem")
+PORT: Final = 8443
+SSL_CERTFILE_PATH: Final = join(dirname(__file__), "cert.pem")
+SSL_KEYFILE_PATH: Final = join(dirname(__file__), "key.pem")
+
+# check that both certificate files exist
 both_certfiles_exist = all([exists(SSL_CERTFILE_PATH), exists(SSL_KEYFILE_PATH)])
 
+# check if to startup api in dev mode or not
 devmode = os.environ.get("DEVMODE", "").lower()
 if devmode not in ["true", "false"]:
     raise InvalidDevmodeValue(provided=devmode)

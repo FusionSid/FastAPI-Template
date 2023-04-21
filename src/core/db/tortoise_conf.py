@@ -1,9 +1,11 @@
+from typing import Final
+
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-TORTOISE_CONFIG = {
+TORTOISE_CONFIG: Final = {
     "connections": {"default": os.environ["DATABASE_URL"]},
     "apps": {
         "models": {
