@@ -62,10 +62,11 @@ devmode = os.environ.get("DEVMODE", "").lower()
 if devmode not in ["true", "false"]:
     raise InvalidDevmodeValue(provided=devmode)
 
-if devmode == "true" or not both_certfiles_exist:
-    options = {"app": "main:app", "port": PORT, "reload": True}
-else:
-    options = {
+# set the uvicorn server options based one dev mode or not
+options = (
+    {"app": "main:app", "port": PORT, "reload": True}
+    if devmode == "true" or not both_certfiles_exist
+    else {
         "app": "main:app",
         "reload": False,
         "port": PORT,
@@ -73,6 +74,7 @@ else:
         "ssl_keyfile": SSL_KEYFILE_PATH,
         "ssl_certfile": SSL_CERTFILE_PATH,
     }
+)
 
 
 if __name__ == "__main__":
