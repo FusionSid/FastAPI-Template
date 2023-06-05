@@ -31,8 +31,7 @@ def get_description() -> str:
 
     path = join(dirname(__file__), "../../../", "assets/markdown/description.md")
     with open(path) as f:
-        description = f.read()
-    return description
+        return f.read()
 
 
 class TheAPI(FastAPI):
@@ -46,7 +45,7 @@ class TheAPI(FastAPI):
         super().__init__(
             title="<name> REST API",
             version=version,
-            description="A REST API",
+            description=get_description(),
             license_info={
                 "name": "MIT",
                 "url": "https://opensource.org/licenses/MIT",
